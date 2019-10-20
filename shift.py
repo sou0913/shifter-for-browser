@@ -4,6 +4,8 @@ import random
 import openpyxl
 import pprint
 import tkinter as tk
+import calendar
+import datetime
 
 wb = openpyxl.load_workbook('/Users/so/Desktop/book.xlsx')
 
@@ -14,6 +16,13 @@ empty_2d = []
 for i in range(10):
     empty_2d.append(empty)
 
+def makeDates(year, month):
+    date_1d = []
+    days = calendar.monthrange(year, month)[1]
+    for day in range(1, days+1):
+        date_1d.append(datetime.date(year, month, day))
+    return [1 if i.weekday() >= 5 else 0 for i in date_1d]
+
 def write_list_2d(sheet, l_2d, start_row, start_col):
     for y, row in enumerate(l_2d):
       for x, cell in enumerate(row):
@@ -21,8 +30,9 @@ def write_list_2d(sheet, l_2d, start_row, start_col):
                      column=start_col + x,
                      value=cell)
 
-def makeShift2(days, members, holidays, atLeast, continuous, notice):
-    for k in range(100):
+def makeShift2(year, month, members, holidays, atLeast, atHoliday, continuous, notice):
+    days = calendar.monthrange(year, month)[1]
+    for k in range(10000):
         s_2d = []
         for j in range(members):
             for i in range(100):
@@ -42,11 +52,14 @@ def makeShift2(days, members, holidays, atLeast, continuous, notice):
                 else:
                     break
             s_2d.append(one)
-        m_d1 = np.sum(s_2d, axis=0)
-        if k == 99:
+        m_1d = np.sum(s_2d, axis=0)
+        w_or_h_1d = makeDates(year, month)
+        y = [w_or_h_1d, m_1d]
+        m_h_1d = [y[1][i] for i, cell in enumerate(m_1d) if y[0][i]==1] 
+        if k == 9999:
             notice.delete(0, tk.END)
             notice.insert(tk.END, "見つかりませんでした")
-        elif np.all(m_d1 >= atLeast):
+        elif np.all(m_1d >= atLeast) and np.all(np.array(m_h_1d) >= atHoliday):
             s2_2d = []
             for s_1d in s_2d:
                 s2_1d = ["" if i == 1 else "○" for i in s_1d]
