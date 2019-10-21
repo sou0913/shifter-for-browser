@@ -11,6 +11,14 @@ wb = openpyxl.load_workbook('/Users/so/Desktop/book.xlsx')
 
 sheet = wb['Sheet1']
 
+def get_value_list(t_2d):
+    return([[i for i, cell in enumerate(row) if cell.value is not None] for row in t_2d])
+
+l_2d = get_value_list(sheet["B2:AE7"])
+
+pprint.pprint(l_2d, width=40)
+
+
 empty = [""] * 31
 empty_2d = []
 for i in range(10):
@@ -35,7 +43,7 @@ def makeShift2(year, month, members, holidays, atLeast, atHoliday, continuous, n
     for k in range(10000):
         s_2d = []
         for j in range(members):
-            for i in range(100):
+            for i in range(10000):
                 h_d1 = random.sample(range(days), k=holidays)
                 one = [1] * days
                 for h in h_d1:
@@ -43,11 +51,14 @@ def makeShift2(year, month, members, holidays, atLeast, atHoliday, continuous, n
                 one_st = "".join(str(n) for n in one)
                 renkin = [1] * (continuous + 1)
                 renkin_st = "".join(str(n) for n in renkin)
-                if i == 99:
+                kibou_genzitu_1d = [one[i] for i in l_2d[j]]
+                if i == 9999:
                     notice.delete(0, tk.END)
-                    notice.insert(tk.END, "連勤数に修正が必要です")
+                    notice.insert(tk.END, "連勤数、希望休に修正が必要です")
                     return
                 elif renkin_st in one_st:
+                    continue
+                elif kibou_genzitu_1d != [] and np.any(np.array(kibou_genzitu_1d) > 0):
                     continue
                 else:
                     break
