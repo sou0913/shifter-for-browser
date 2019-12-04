@@ -17,6 +17,7 @@ Python 3.6
 
 ## 機能について
 - 条件を入力すると、それに合ったシフトが作成されます。
+
 <a href="https://gyazo.com/713b065be3b7d500e1e2df7ded2840b2"><img src="https://i.gyazo.com/713b065be3b7d500e1e2df7ded2840b2.gif" alt="Image from Gyazo" width="400"/></a>
 
 <br>
