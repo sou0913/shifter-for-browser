@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+{% block content %}
+{{　notice }}
+<p>excelでダウンロードする</p>
+<form action="/download" method="POST">
+  <input type="hidden" name="id" value= {{ id }}>
+  <input type="submit" value="ダウンロード">
+</form>
+<a href="/">トップページへ戻る</a>
+{% endblock %}

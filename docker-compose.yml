@@ -1,0 +1,17 @@
+version: '3'
+services:
+  nginx-server:
+    build: ./proxy/
+    ports:
+      - 80:80
+    volumes:
+      - ./proxy/conf.d:/etc/nginx/conf.d
+    depends_on:
+      - gunicorn-server
+  gunicorn-server:
+    build: ./application/
+    expose:
+      - "4000"
+    volumes:
+      - ./application/:/var/www/
+    

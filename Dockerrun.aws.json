@@ -1,0 +1,68 @@
+{
+  "AWSEBDockerrunVersion": 2,
+  "volumes": [
+    {
+      "name": "gunicorn-server",
+      "host": {
+        "sourcePath": "/var/app/current/application"
+      }
+    },
+    {
+      "name": "nginx-proxy-conf",
+      "host": {
+        "sourcePath": "/var/app/current/proxy/conf.d"
+      }
+    }
+  ],
+  "containerDefinitions": [
+    {
+      "name": "gunicorn-server",
+      "image": "soucker/shift_gunicorn",
+      "essential": true,
+      "memory": 128,
+      "portMappings": [
+        {
+          "containerPort": 4000
+        }
+      ],
+      "mountPoints": [
+        {
+          "sourceVolume": "gunicorn-server",
+          "containerPath": "/var/www/",
+          "readOnly": false
+        }
+      ]
+    },
+    {
+      "name": "nginx-proxy",
+      "image": "soucker/shift_nginx",
+      "essential": true,
+      "memory": 128,
+      "portMappings": [
+        {
+          "hostPort": 80,
+          "containerPort": 80
+        }
+      ],
+      "links": [
+        "gunicorn-server"
+      ],
+      "mountPoints": [
+        {
+          "sourceVolume": "gunicorn-server",
+          "containerPath": "/var/www/",
+          "readOnly": false
+        },
+        {
+          "sourceVolume": "nginx-proxy-conf",
+          "containerPath": "/etc/nginx/conf.d/",
+          "readOnly": false
+        },
+        {
+          "sourceVolume": "awseb-logs-nginx-proxy",
+          "containerPath": "/var/log/nginx/"
+        }
+      ]
+    }
+  ]
+}

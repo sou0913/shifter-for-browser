@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+{% block content %}
+<h3>Hello</h3>
+<form action="/info" method="POST" class="shift-form">
+    <p>
+    年：<input type="text" name="year">
+    </p>
+    <p>
+    月：<input type="text" name="month">
+    </p>
+    <p>
+    人数：<input type="text" name="members">
+    </p>
+    <p>
+    休日数：<input type="text" name="holiday">
+    </p>
+    <p>
+    最低人数：<input type="text" name="at_least">
+    </p>
+    <p>
+    休日の最低人数：<input type="text" name="at_holiday">
+    </p>
+    <p>
+    最大連勤数：<input type="text" name="continuous">
+    </p>
+    <p>
+      <input type="submit" value="シフト作成">
+    </p>
+    <p>
+      <input type="reset" value="リセット">
+    </p>
+</form>    
+{% endblock %}
+

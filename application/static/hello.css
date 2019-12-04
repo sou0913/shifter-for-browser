@@ -1,0 +1,11 @@
+.shift-form {
+   width: 50%;
+}
+input {
+    display: block;
+    margin: 20px;
+}
+h3 {
+    color: red;
+}
+
