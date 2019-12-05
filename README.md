@@ -28,6 +28,10 @@ Python 3.6
 
 <a href="https://gyazo.com/4ab036180b5e5644486ffc9d96f55b05"><img src="https://i.gyazo.com/4ab036180b5e5644486ffc9d96f55b05.gif" alt="Image from Gyazo" width="400"/></a>
 
+- 異常な値は入力できないようになっております
+
+<a href="https://gyazo.com/608d75e28ebf9089949da57f3fb42424"><img src="https://i.gyazo.com/608d75e28ebf9089949da57f3fb42424.png" alt="Image from Gyazo" width="400"/></a>
+
 ## 制作で学んだこと
 - Dockerを用いた開発の流れを知れたことは大きく、今後の開発にも積極的に利用していきたいです。
 - Flaskについては、[こちら](https://github.com/sou0913/inu-neko)の犬猫判定アプリに引き続き二度目の利用となったので、だいぶ慣れてきているのを感じます。
