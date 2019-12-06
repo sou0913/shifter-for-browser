@@ -32,6 +32,12 @@ Python 3.6
 
 <a href="https://gyazo.com/608d75e28ebf9089949da57f3fb42424"><img src="https://i.gyazo.com/608d75e28ebf9089949da57f3fb42424.png" alt="Image from Gyazo" width="400"/></a>
 
+- 単体テストを行いました
+
+<a href="https://gyazo.com/8475715f3422a9bd1bae4d9fd3de91f4"><img src="https://i.gyazo.com/8475715f3422a9bd1bae4d9fd3de91f4.png" alt="Image from Gyazo" width="700"/></a>
+
 ## 制作で学んだこと
 - Dockerを用いた開発の流れを知れたことは大きく、今後の開発にも積極的に利用していきたいです。
 - Flaskについては、[こちら](https://github.com/sou0913/inu-neko)の犬猫判定アプリに引き続き二度目の利用となったので、だいぶ慣れてきているのを感じます。
+- 単体テストを行うことで、pythonのデバッグ方法についての知識が広がました。
+
