@@ -10,6 +10,7 @@ def top():
 
 @app.route('/info',methods=['POST'])
 def info():
+    # import pdb; pdb.set_trace()
     year  = int(request.form['year'])
     month = int(request.form['month'])
     members = int(request.form['members'])
@@ -39,5 +40,6 @@ def download():
     return send_from_directory('static/books/', f'book{id}.xlsx', as_attachment=True)
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=4000)
+    app.run(debug=True)
+    # , host="0.0.0.0", port=4000)
 

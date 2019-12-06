@@ -34,6 +34,7 @@ def write_list_2d(sheet, t_2d, start_row, start_col):
           sheet.cell(row=start_row + y,
                      column=start_col + x,
                      value=cell)
+    return "success!"
 
 def makeShift2(year, month, members, holidays, atLeast, atHoliday, continuous):
     days = calendar.monthrange(year, month)[1]
