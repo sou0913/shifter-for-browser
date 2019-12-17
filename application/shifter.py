@@ -29,8 +29,9 @@ def makeDates(year, month):
     days = calendar.monthrange(year, month)[1] # [0]は月の初日の曜日番号
     for day in range(1, days+1):
         date_1d.append(datetime.date(year, month, day)) # datetime.dateの返り値はdateオブジェクト
-    return [1 if i.weekday() >= 5 else 0 for i in date_1d]　# 土日1, 平日0
+    return [1 if i.weekday() >= 5 else 0 for i in date_1d]　# 土日1, 平日0の1次元リスト
 
+# 作ったシフトをExcelのSheetに記入する。Sheetは1始まり。
 def write_list_2d(sheet, t_2d, start_row, start_col):
     for y, row in enumerate(t_2d):
       for x, cell in enumerate(row):
@@ -40,6 +41,7 @@ def write_list_2d(sheet, t_2d, start_row, start_col):
     return "success!"
 
 def makeShift2(year, month, members, holidays, atLeast, atHoliday, continuous):
+    # 以下では1が出勤、0が休み。
     days = calendar.monthrange(year, month)[1]
     for k in range(10000):
         s_2d = []
@@ -49,24 +51,28 @@ def makeShift2(year, month, members, holidays, atLeast, atHoliday, continuous):
                 one = [1] * days
                 for h in h_d1:
                     one[h] = 0
+                # randomで制作した一行のシフトを文字列に変換
                 one_st = "".join(str(n) for n in one)
                 renkin = [1] * (continuous + 1)
                 renkin_st = "".join(str(n) for n in renkin)
                 # 希望休制度
+                # randamで生成したシフト中の、希望休日の値を取得
                 # kibou_genzitu_1d = [one[i] for i in l_2d[j]]
                 if i == 9999:
                     return "fix"
                 elif renkin_st in one_st:
                     continue
                 # 希望休制度
+                # np.anyは、一つでもtrueならtrueを返す。
                 # elif kibou_genzitu_1d != [] and np.any(np.array(kibou_genzitu_1d) > 0):
                 #     continue
                 else:
                     break
             s_2d.append(one)
         m_1d = np.sum(s_2d, axis=0)
-        w_or_h_1d = makeDates(year, month)
+        w_or_h_1d = makeDates(year, month) #返り値は土日1,平日0のリスト
         y = [w_or_h_1d, m_1d]
+        # 土日の人数取得
         m_h_1d = [y[1][i] for i, cell in enumerate(m_1d) if y[0][i]==1] 
         if k == 9999:
             return "unable"
