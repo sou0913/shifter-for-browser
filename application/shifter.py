@@ -1,3 +1,4 @@
+# 最初は一人づつのシフトの直積を取ろうとしてましたが、計算量が多く断念。
 import itertools
 import numpy as np
 import random
@@ -11,11 +12,13 @@ wb = openpyxl.load_workbook('static/books/book.xlsx', read_only=False, keep_vba=
 
 sheet = wb['Sheet1']
 
+# 入力された二次元行列の空でない要素のindexを一次元で返す。
 def get_value_list(t_2d):
     return([[i for i, cell in enumerate(row) if cell.value is not None] for row in t_2d])
-
+# openpyxlにより、Excelシートの内容を二次元行列で取得。
 l_2d = get_value_list(sheet["B2:AE7"])
 
+# 初期化するための空の二次元配列を作成
 empty = [""] * 31
 empty_2d = []
 for i in range(10):
@@ -23,10 +26,10 @@ for i in range(10):
 
 def makeDates(year, month):
     date_1d = []
-    days = calendar.monthrange(year, month)[1]
+    days = calendar.monthrange(year, month)[1] # [0]は月の初日の曜日番号
     for day in range(1, days+1):
-        date_1d.append(datetime.date(year, month, day))
-    return [1 if i.weekday() >= 5 else 0 for i in date_1d]
+        date_1d.append(datetime.date(year, month, day)) # datetime.dateの返り値はdateオブジェクト
+    return [1 if i.weekday() >= 5 else 0 for i in date_1d]　# 土日1, 平日0
 
 def write_list_2d(sheet, t_2d, start_row, start_col):
     for y, row in enumerate(t_2d):
